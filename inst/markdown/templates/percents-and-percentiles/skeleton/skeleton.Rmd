@@ -1,0 +1,128 @@
+---
+title: "Percents and Percentiles"
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+
+In this homework, we will use birth records to calculate percents.  We will look at both the percent of women who give birth at particular ages in a given year as well as the percent of births in a given year that take place to women of a particular age.  Then, we will calculate percentiles of the ages of women who give birth in 1934, 1974 and 2014 to briefly examine trends over time.
+
+We will start by loading libraries.  This means that we tell R groups of commands that we will be using.  To load the libraries, simply highlight the lines below that begin with "library", and run those lines.
+
+```{r}
+
+library('lehmansociology')
+library('HMDHFDplus')
+
+```
+
+Now that we've loaded our libraries, we need to import our data.  The first data will come from the Human Fertility Database.  This site is a data repository for data on fertility for many different countries, including data for the United States.  To access the data, you will need to create an account.  Go ahead an navigate to www.humanfertility.org.  Once on that site, click New User on the top left and create an account.  The account is free, and you will not need to visit the site again to gather the data.
+
+Once you've created your account, enter your username and password where indicated in capital letters.  Be sure that your username and password are within the quotes.  Then, run the line.  Here, you are creating a dataset with fertility data imported from the humanfertility.org website.
+
+```{r}
+
+agespecificbirths <- readHFDweb(CNTRY = 'USA', item = 'birthsRR', username = 'HUMANFERTILITY.ORG USERNAME', password = 'HUMANFERTILITY.ORG PASSWORD')
+
+```
+
+Go ahead and click on the agespecificbirths dataset name in the Environment window on the left.  Notice that you have information on the number of births to women at ages 12 to 55 in each year from 1933 to 2014 (the number of births is called Total in this dataset).  We'll need to clean this data up a little bit, and to gather some data on the female population at each age in these years.  To gather this information, we will import data from www.mortality.org.  For this site as well, you will need an account.  Go ahead and navigate to www.mortality.org and create an account by clicking New User on the top left.
+
+Once you've created your account, enter your username and password where indicated in capital letters.  Be sure that your username and password are within the quotes.  Then, run the line.  Here you are creating a new dataset with population data imported from the mortality.org website.
+
+```{r}
+
+population <- readHMDweb(CNTRY = 'USA', item = 'Population', username = 'MORTALITY.ORG USERNAME', password = 'MORTALITY.ORG PASSWORD')
+
+```
+
+The next thing we need to do is put our data on births and our data on population together into a single dataset.  Don't worry too much about what these lines do.  These lines prepare the data to connect the two datasets, and set up a new dataset that is easier to use.
+
+```{r}
+
+birthsdata <- subset(population, Age>=12)
+birthsdata <- subset(birthsdata, Age<=55)
+birthsdata <- subset(birthsdata, Year<=2014)
+birthsdata$Births <- agespecificbirths$Total
+birthsdata <- subset(birthsdata, Age>=15)
+birthsdata <- subset(birthsdata, Age<=49)
+
+birthsdata <- dplyr::select(birthsdata, Year, Age, Female1, Births)
+birthsdata <- dplyr::rename(birthsdata, FemalePop = Female1)
+
+```
+
+Now we are ready to calculate some percentages.  The first percentage you will calculate is the percentage of women in a given age group in a given year who have children. For example, we might want to know the percentage of 35 year old women who had children in the year 2010.  All the information we need to calculate this is in the birthsdata dataset.  Go ahead and open that dataset by clicking on it in the Environment window.  We'll need to two variables to make this calculation.  The first is Births, which indicates the number of births that took place to women of a particular age in a particular year.  The second is FemalePop, which indicates the number of women alive in the US of a given age in a given year.
+
+Go ahead an calculate the percent of women in each age group who had a child.  To do this, recall how to create a new variable from the TryR lessons you completed.  As a reminder, to specify a variable, you'll need to first specify the dataset, then use the $ sign, then specify the variable name.  For example to tell R we want to work with the Age variable in the birthsdata dataset, we would write birthsdata$Age.  The new variable you create will be called percentwithinage.  I've already written then left side of the equation for you.  You just need to fill in the calculation for the number of births to women in each age group.
+
+```{r}
+
+birthsdata$percentwithinage <- WRITE IN YOUR CALCULATION HERE
+
+```
+
+Go ahead and look at the birthsdata dataset again.  Notice that there is a new variable for percentwithinage.
+
+Now, you'll calculate the number of births at each age that take place to women of each age.  For example, we might want to know what percentage of births in the year 2000 were to women who were 30 years old.  To calculate this, we need to first know the total number of births in a given year.  The lines below calculate the total number of births per year, and then saves that as a variable in the birthsdata dataset.  Go ahead and run these lines.
+
+```{r}
+
+total_births_by_year <- aggregate(x = birthsdata[4], by = list(Year = birthsdata$Year), FUN=sum)
+
+total_births_by_year <- dplyr::rename(total_births_by_year, TotalBirths = Births)
+
+birthsdata <- merge(birthsdata, total_births_by_year, by="Year")
+
+```
+
+Take a look at the birthsdata dataset again.  Notice that there is a new variable that tells us the total number of births in a given year.  This variable repeats for each age in a given year.  For example, for all row that correspond to the year 1933, the total number of births is 2,078,410.
+
+Now go ahead and calculate the percent of births in each year that took place to women of each age.  For this, we will need the number of births as well as the total birth that took place in each year.  Go ahead and write in your calculation below and run the line.
+
+```{r}
+
+birthsdata$percentwithinyear <- WRITE IN YOUR CALCULATION HERE
+
+```
+
+The last thing we'll do is calculate percentiles for the ages of women who had children in a given year.  As we've discussed, a percentile is the value at which a given percentage of observations fall below.  For example, the 10th percentile of the age at which a woman gives birth in 1933 is 19, that means that 10% of births in that year occur to women who are 19 or younger.
+
+The code below first isolates data for the year 1934.  Then, the dataset is expanded so that each line in the dataset represents one single birth.  Then R is asked to calculate percentiles of ages for every 10%.  What this will tell is the age at which 10% of births are to women of a given age and below, 20% of births are to women of a particular age and below, 30% of births ... etc.  Go ahead and run the lines below.
+
+```{r}
+
+birthsdata1934 <- subset(birthsdata, Year==1934)
+
+birthsdata1934.expanded <- birthsdata1934[rep(seq(nrow(birthsdata1934)), birthsdata1934$Births), 1:2]
+
+quantile(birthsdata1934.expanded$Age, probs = seq(0, 1, .1))
+
+```
+
+Now you have the deciles (percentiles in multiples of 10) for age at birth for 1934.  The line below will give you the same for 1974.
+
+```{r}
+
+birthsdata1974 <- subset(birthsdata, Year==1974)
+
+birthsdata1974.expanded <- birthsdata1974[rep(seq(nrow(birthsdata1974)), birthsdata1974$Births), 1:2]
+
+quantile(birthsdata1974.expanded$Age, probs = seq(0, 1, .1))
+
+```
+
+The lines below will give you the same for 2014.
+
+```{r}
+
+birthsdata2014 <- subset(birthsdata, Year==2014)
+
+birthsdata2014.expanded <- birthsdata2014[rep(seq(nrow(birthsdata2014)), birthsdata2014$Births), 1:2]
+
+quantile(birthsdata2014.expanded$Age, probs = seq(0, 1, .1))
+
+```
+
+Once you have completed these lines, knit this template to PDF, and go back to Blackboard to answer some questions based on this template there.

@@ -1,0 +1,20 @@
+Package: soc281
+Type: Package
+Title: R for SOC 281
+Version: 0.1.0
+Author: person("Elin", "Waring", email="elin.waring@gmail.com", role = "aut"),
+        person("Eric", "Ketcham", email="eric.ketcham@gmail.com", role = "aut"),
+Maintainer: Elin Waring <elin.waring@gmail.com>
+Description: SOC 281 materials
+License: TBD
+Encoding: UTF-8
+LazyData: true
+Depends:
+    R (>= 3.1.2)
+Imports:
+    knitr,
+    HMDHFDplus (>= 1.1.8)
+Suggests:
+    pander
+Remotes:
+    timriffe/TR1/TR1/HMDHFDplus
