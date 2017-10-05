@@ -1,0 +1,100 @@
+---
+title: "Operations"
+output: html_document
+---
+
+In this homework, you will explore data about US states.  For each new variable, you will need to determine whether to add, subtract, multiply, or divide.  Ater creating the new variables, you will knit the template to HTML, and in Blackboard you will answer a series of questions.
+ 
+```{r, echo=FALSE, message=FALSE}
+# Load your libraries here
+
+library(lehmansociology)
+
+```
+
+Now we will set up the data for analysis.  The data is already available within R, we just need to tell R to retreive this data.
+
+````{r}
+
+data(state, list=character(), package="datasets", lib.loc=NULL, envir=.GlobalEnv)
+states<-data.frame(state.x77)
+
+````
+
+Let's take a look at this dataset called states that we just set up.  To print the data to the console in the program, just enter in the name of the dataset.  Run the name below to see the data.
+
+````{r}
+
+states
+
+````
+
+The Population variable is measured in 1,000s.  Create a new variable that gives the actual population for each state.
+
+```{r}
+
+states$ActualPopulation <- YOUR CALCULATION HERE
+
+```
+
+Income represents the per capital income in the state.  Create a variable that indicates the total income for the state all together.
+
+```{r}
+
+states$TotalIncome <- YOUR CALCULATION HERE
+
+```
+
+Frost represents the average number of days below freezing in a particular location within each state.  Create a variable that indicates the proportion of days in a given year that were below freezing.
+
+```{r}
+
+states$PercentFrost <- YOUR CALCULATION HERE
+
+```
+
+Next, calculate the average number of days per year without below freezing temperatures.
+
+```{r}
+
+states$NonFrostDays <- YOUR CALCULATION HERE
+
+```
+
+Area gives the number of square miles in the state.  Create a variable that indicates the number of people per square mile in the state.
+
+```{r}
+
+states$PopulationPerSqMile <- YOUR CALCULATION HERE
+
+```
+
+Illiteracy represents the percentage of the population that was illerate at the time data were gathered.  Create a new variable that gives an estimate of the number of people in each state that were illiterate.
+
+There are two ways that you can do this.  One way is to first convert the percentage into a proportion, then use the proportion to calculate the estimated number.  The second way is to do it all in one calculation.
+
+```{r}
+
+states$NumberIlliterate <- YOUR CALCULATION HERE
+
+```
+
+HS.Grad represents the percentag eof the population that had graduated High School at the time data were collected.  Calculate the estimated number of individuals who had graduated High School.
+
+There are two ways that you can do this.  One way is to first convert the percentage into a proportion, then use the proportion to calculate the estimated number.  The second way is to do it all in one calculation.
+
+```{r}
+
+states$NumberHS.Grad <- YOUR CALCULATION HERE
+
+```
+
+Finally, calculate the number of people who had graduated high school or who were illiterate at the time the data were gathered (assuming that no individual falls into both categories).
+
+```{r}
+
+states$NumberHSandIlliterate <- YOUR CALCULATION HERE
+
+```
+
+Once you've completed these, knit to HTML and upload the knitted document to Blackboard.  In Blackboard, you will answer a handful of questions to ensure that you completed these calculations correctly.
