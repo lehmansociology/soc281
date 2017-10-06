@@ -1,6 +1,10 @@
 ---
 title: "Operations"
-output: html_document
+output: 
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
 ---
 
 In this homework, you will explore data about US states.  For each new variable, you will need to determine whether to add, subtract, multiply, or divide.  Ater creating the new variables, you will knit the template to HTML, and in Blackboard you will answer a series of questions.

@@ -1,7 +1,7 @@
 Package: soc281
 Type: Package
 Title: R for SOC 281
-Version: 0.1.0
+Version: 0.1.1
 Author: person("Elin", "Waring", email="elin.waring@gmail.com", role = "aut"),
         person("Eric", "Ketcham", email="eric.ketcham@gmail.com", role = "aut"),
 Maintainer: Elin Waring <elin.waring@gmail.com>
