@@ -1,0 +1,101 @@
+---
+title: "Measures of Central Tendency"
+output: html_document
+---
+
+
+In this lab you will decide whether mean, median, and mode can be calculated for a variety of variables, and then calculate as appropriate.
+
+As always, we need to start by loading our libraries.  Go ahead and run line 13 below.
+
+```{r}
+
+library('soc281')
+
+```
+
+Next, we need to load our data.  As we used for the last lab, we'll use the "states" dataset that is pre-loaded into R.  We just need to call up this dataset and format it.  Go ahead and run the lines below without modification.
+
+```{r}
+
+data(state, list=character(), package="datasets", lib.loc=NULL, envir=.GlobalEnv)
+states<-data.frame(state.x77)
+
+states.1<-data.frame(state.region)
+
+states$Region <- states.1$state.region
+
+```
+
+While R has functions built in for mean and median, there is no built in fuction for mode.  Below we create this function so that we can use R to calculate all three measures of central tendency.  Go ahead and run the lines below without modification.
+
+```{r}
+
+mode <- function(v) {
+  uniqv <- unique(v)
+  uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+
+```
+
+Below are examples of the functions for mean, median, and mode.  Each function is named by the measure of central tendency we want to calculate - that is they are mean(), median(), and mode().  Within the parentheses, we put the name of the dataset, then the $, then the name of the variable to specify what we are calculating the mean, median, or mode of.  Go ahead and run the lines below, one at a time, to see their corresponding results.  Note that for the mode function, if there are no repeated values, the first value will be returned as the mode (even though there is actually no mode in this case).
+
+```{r}
+
+mean(states$Population)
+
+median(states$Income)
+
+mode(states$Region)
+
+```
+
+Now you will calculate mean, median, and/or mode for variables in the states dataset.  We have 10 variables in the dataset.  For each one, decide whether mean, median, and/or mode are meaningful measures, then calculate only the ones that are appropriate.  Use the space below for the variable Illiteracy.  This is the percent of the population that is illiterate.
+
+```{r}
+
+
+
+```
+
+Use the space below for the variable Life.Exp.  This is the life expectancy at birth, measured in years.
+
+```{r}
+
+
+
+```
+
+Use the space below for the variable Murder.  This is the number of murders that occured per 10,000 persons in the population.
+
+```{r}
+
+
+
+```
+
+Use the space below for the variable Frost.  This is the mean number of days per year that a particular location in the state experiences below-freezing temperatures.
+
+```{r}
+
+
+```
+
+Use the space below for the variable HS.Grad.  This is the percent of the population that has graduated high school.
+
+```{r}
+
+
+
+```
+
+Use the space below for the variable Region.  This is the geographic region that the state falls within (Northeast, South, North Central, or West)
+
+```{r}
+
+
+
+```
+
+Now, go ahead and knit to PDF, Word, or HTML, export the file, and upload to Blackboard for this homework assignment.
+
