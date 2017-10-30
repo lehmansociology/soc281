@@ -11,6 +11,7 @@ As always, we need to start by loading our libraries.  Go ahead and run line 13 
 ```{r}
 
 library('soc281')
+library('lehmansociology')
 
 ```
 
@@ -27,18 +28,7 @@ states$Region <- states.1$state.region
 
 ```
 
-While R has functions built in for mean and median, there is no built in fuction for mode.  Below we create this function so that we can use R to calculate all three measures of central tendency.  Go ahead and run the lines below without modification.
-
-```{r}
-
-mode <- function(v) {
-  uniqv <- unique(v)
-  uniqv[which.max(tabulate(match(v, uniqv)))]
-}
-
-```
-
-Below are examples of the functions for mean, median, and mode.  Each function is named by the measure of central tendency we want to calculate - that is they are mean(), median(), and mode().  Within the parentheses, we put the name of the dataset, then the $, then the name of the variable to specify what we are calculating the mean, median, or mode of.  Go ahead and run the lines below, one at a time, to see their corresponding results.  Note that for the mode function, if there are no repeated values, the first value will be returned as the mode (even though there is actually no mode in this case).
+Below are examples of the functions for mean, median, and mode.  Each function is named by the measure of central tendency we want to calculate - that is they are mean(), median(), and mode().  Within the parentheses, we put the name of the dataset, then the $, then the name of the variable to specify what we are calculating the mean, median, or mode of.  Go ahead and run the lines below, one at a time, to see their corresponding results.  Note the mode function is written in all caps.
 
 ```{r}
 
@@ -46,11 +36,11 @@ mean(states$Population)
 
 median(states$Income)
 
-mode(states$Region)
+MODE(states$Region)
 
 ```
 
-Now you will calculate mean, median, and/or mode for variables in the states dataset.  We have 10 variables in the dataset.  For each one, decide whether mean, median, and/or mode are meaningful measures, then calculate only the ones that are appropriate.  Use the space below for the variable Illiteracy.  This is the percent of the population that is illiterate.
+Now you will calculate mean, median, and/or mode for variables in the states dataset.  For each variable listed below, decide whether mean, median, and/or mode are meaningful measures, then calculate only the ones that are appropriate.  Use the space below for the variable Illiteracy.  This is the percent of the population that is illiterate.
 
 ```{r}
 
