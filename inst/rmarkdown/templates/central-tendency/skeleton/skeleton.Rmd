@@ -28,7 +28,7 @@ states$Region <- states.1$state.region
 
 ```
 
-Below are examples of the functions for mean, median, and mode.  Each function is named by the measure of central tendency we want to calculate - that is they are mean(), median(), and mode().  Within the parentheses, we put the name of the dataset, then the $, then the name of the variable to specify what we are calculating the mean, median, or mode of.  Go ahead and run the lines below, one at a time, to see their corresponding results.  Note the mode function is written in all caps.
+Below are examples of the functions for mean, median, and mode.  Each function is named by the measure of central tendency we want to calculate - that is they are mean(), median(), and MODE().  Within the parentheses, we put the name of the dataset, then the $, then the name of the variable to specify what we are calculating the mean, median, or mode of.  Go ahead and run the lines below, one at a time, to see their corresponding results.  Note the mode function is written in all caps.
 
 ```{r}
 
