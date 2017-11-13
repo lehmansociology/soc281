@@ -1,0 +1,119 @@
+---
+title: "Scatter plot"
+output: html_document
+---
+
+In this lab, you will build out a scatterplot using an example, and then will design your own plot.  As always, we will start with loading the soc281 library.
+
+```{r}
+
+library('soc281')
+
+```
+
+We will use the states data again here.  No need to modify the lines below - these just set up the data that we'll use in this template.
+
+```{r}
+
+data(state, list=character(), package="datasets", lib.loc=NULL, envir=.GlobalEnv)
+states<-data.frame(state.x77)
+
+states.1<-data.frame(state.region)
+
+states$Region <- states.1$state.region
+
+states.2<-data.frame(state.division)
+
+states$Division <- states.2$state.division
+
+```
+
+We will use the package ggplot2 to create the graphs, so the first step is to load the package.
+
+To build our plot, we're going to create a "value" called "plot", and save the details of the scatterplot to the value.  The first line below creates such a value using the ggplot() command, and the second line will display the value.
+
+In line 39, all we set up is the x and y axes by specifying the dataset we're going to use, then the variables that will correspond to our axes - Illiteracy and HS.Grad.  Enter in the x and y variables, then go ahead and run the lines of code below.  
+
+```{r}
+library('ggplot2')
+plot <- ggplot(states, aes(x=X VARIABLE HERE, y=Y VARIABLE HERE))
+
+plot
+
+```
+
+As you can see, we don't have any points or lines on this plot.  To add these, we need to specify what kind of display we want.  Here, we're going to use points to show the scatterplot.  Below in line 43, you'll see the commant geom_point() added which specifies what kind of plot to make.  Go ahead and run the lines below.
+
+```{r}
+
+plot <- ggplot(states, aes(x=Illiteracy, y=HS.Grad)) + 
+  geom_point()
+
+plot
+
+```
+
+Next we will add a title and labels.  The labs() command will allow us to do that.  Go ahead and add a title and axis labels for the x and y axes.  The x axis represents the percent illiterate in the state, and the y axis represents the percent graduated from high school.
+
+```{r}
+
+plot <- ggplot(states, aes(x=Illiteracy, y=HS.Grad)) + 
+  geom_point() +
+  labs(title = "YOUR TITLE HERE", 
+       x="X AXIS LABEL HERE", y="Y AXIS LABEL HERE")
+
+plot
+
+```
+
+Next, we'll label the points so that we can tell which point is which state, by using the geom_text() command.  Go ahead and run the lines below.
+
+```{r}
+
+plot <- ggplot(states, aes(x=Illiteracy, y=HS.Grad)) + 
+  geom_point() + 
+  labs(title = "Percent Illiterate and High School Graduate by State in 1970", 
+       x="Percent Illiterate", y="Percent High School Graduate") +
+  geom_text(aes(label=row.names(states)))
+
+plot
+
+```
+
+The problem here is that the labels obscure the points themselves.  We'll add "hjust" and "vjust" horizontally (thus the "h") and vertically (thus the "v") so that they don't block the points themselves.  Go ahead and run the lines below.
+
+```{r}
+
+plot <- ggplot(states, aes(x=Illiteracy, y=HS.Grad)) + 
+  geom_point() + 
+  labs(title = "Percent Illiterate and High School Graduate by State in 1970", 
+       x="Percent Illiterate", y="Percent High School Graduate") +
+  geom_text(aes(label=row.names(states), hjust=0, vjust=0))
+
+plot
+
+```
+
+Finally, we'll give the points and labels colors that correspond to the region of the state.  Here we're adding the "colour=states$Region" option to the ggplot() command.  Go ahead and run the lines below.
+
+```{r}
+
+plot <- ggplot(states, aes(x=Illiteracy, y=HS.Grad, colour=states$Region)) + 
+  geom_point() + 
+  labs(title = "Percent Illiterate and High School Graduate by State in 1970", 
+       x="Percent Illiterate", y="Percent High School Graduate") +
+  geom_text(aes(label=row.names(states), hjust=0, vjust=1))
+
+plot
+            
+```
+
+Now that we've walked through making a scatterplot, go ahead and make your own.  Pick an x and y variable from the states dataset.  Set the color to be determined by the Division variable (which, similar to the Region variable, tells us where in the country the state is).  Use the code developed above as a template, but change out the variable names, the variable that determines color, the axis titles, and change the horizontal and vertical placement of the labels so that they are in a different location relative to the points than set above.
+
+```{r}
+
+YOUR PLOT CODE HERE
+
+```
+
+Go ahead and knit this template, and upload it into the assignment on Blackboard.  There are also some questions to answer about these plots in the assignment as well.
